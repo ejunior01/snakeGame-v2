@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="preload"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script defer src="./js/script.js"></script>
+    <title>Snake Game</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1 class="title-head">SNAKE GAME</h1>
+      <section class="screen-info">
+        <div class="score">
+          <p>Score</p>
+          <span class="current-score">800</span>
+        </div>
+        <div class="settings">
+          <p class="title text-green">Settings</p>
+          <div class="settings-set">
+            <div id="level-settings">
+              <p>Level</p>
+              <span class="select-options">Easy</span>
+            </div>
+            <div id="border-settings">
+              <p>Border</p>
+              <span class="select-options">Yes</span>
+            </div>
+          </div>
+        </div>
+        <div class="record">
+          <p class="title text-green">Record</p>
+          <div class="info-record">
+            <p>Nº</p>
+            <p>Name</p>
+            <p>Score</p>
+          </div>
+          <div class="last-records">
+            <div class="record-game" id="first">
+              <p class="record-position">1</p>
+              <p class="record-name">Junior</p>
+              <p class="record-score">1000</p>
+            </div>
+            <div class="record-game" id="second">
+              <p class="record-position">2</p>
+              <p class="record-name">Ribeiro</p>
+              <p class="record-score">500</p>
+            </div>
+            <div class="record-game" id="third">
+              <p class="record-position">3</p>
+              <p class="record-name">Edvan</p>
+              <p class="record-score">400</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="screen-game">
+        <canvas id="snake" width="384" height="384"></canvas>
+      </section>
+    </main>
+  </body>
+</html>

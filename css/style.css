@@ -1,0 +1,146 @@
+:root {
+  --primary-color: #9bc405;
+}
+
+.text-green {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 20px;
+}
+
+/* Reset Css*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  max-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #141414;
+  font-family: "Press Start 2P", cursive;
+  color: #fff;
+  font-size: 15px;
+}
+
+main.container {
+  width: 90%;
+  height: 90vh;
+  border: 6px dashed var(--primary-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 15% 85%;
+  grid-template-areas:
+    "title title"
+    "screen-game info-config";
+  align-items: center;
+  justify-items: center;
+}
+
+canvas#snake {
+  border: 7px solid #fff;
+}
+
+.title-head {
+  grid-area: title;
+  font-size: 40px;
+  margin-top: 20px;
+}
+.info-config {
+  grid-area: info-config;
+}
+
+.screen-game {
+  grid-area: screen-game;
+}
+
+.screen-info {
+  width: 384px;
+  height: 384px;
+  display: grid;
+  grid-template-columns: 55% 1fr;
+  grid-template-rows: 20% 40% 40%;
+  grid-template-areas:
+    "score score score"
+    "settings settings settings"
+    "record record recoro";
+}
+
+.score {
+  grid-area: score;
+  display: grid;
+  grid-template-columns: 55% 1fr;
+}
+
+.settings {
+  grid-area: settings;
+}
+
+.record {
+  grid-area: record;
+}
+
+.settings-set {
+  display: grid;
+  grid-template-columns: 55% 50%;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "level-settings level-settings"
+    "border-settings border-settings";
+  gap: 15px;
+}
+
+#level-settings {
+  grid-area: level-settings;
+}
+#border-settings {
+  grid-area: border-settings;
+}
+
+#level-settings,
+#border-settings {
+  display: grid;
+  grid-template-columns: 51% 1fr;
+}
+
+.info-record {
+  display: grid;
+  grid-template-columns: 15% 40% 45%;
+  margin-bottom: 15px;
+}
+
+.last-records {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "first first first"
+    "second second second"
+    "third third third";
+  gap: 15px;
+}
+
+#first {
+  grid-area: first;
+}
+
+#second {
+  grid-area: second;
+}
+
+#third {
+  grid-area: third;
+}
+
+.record-game {
+  display: grid;
+  grid-template-columns: 10% 35% 60%;
+  gap: 20px;
+}
