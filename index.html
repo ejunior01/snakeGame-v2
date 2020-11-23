@@ -16,6 +16,8 @@
     />
     <link rel="stylesheet" href="./css/style.css" />
     <script defer src="./js/script.js"></script>
+    <script defer src="./js/record.js"></script>
+
     <title>Snake Game</title>
   </head>
   <body>
@@ -24,7 +26,7 @@
       <section class="screen-info">
         <div class="score">
           <p>Score</p>
-          <span class="current-score">800</span>
+          <span class="current-score">0</span>
         </div>
         <div class="settings">
           <p class="title text-green">Settings</p>
@@ -49,25 +51,39 @@
           <div class="last-records">
             <div class="record-game" id="first">
               <p class="record-position">1</p>
-              <p class="record-name">Junior</p>
-              <p class="record-score">1000</p>
+              <p class="record-name">-</p>
+              <p class="record-score">0</p>
             </div>
             <div class="record-game" id="second">
               <p class="record-position">2</p>
-              <p class="record-name">Ribeiro</p>
-              <p class="record-score">500</p>
+              <p class="record-name">-</p>
+              <p class="record-score">0</p>
             </div>
             <div class="record-game" id="third">
               <p class="record-position">3</p>
-              <p class="record-name">Edvan</p>
-              <p class="record-score">400</p>
+              <p class="record-name">-</p>
+              <p class="record-score">0</p>
             </div>
           </div>
         </div>
       </section>
       <section class="screen-game">
-        <canvas id="snake" width="384" height="384"></canvas>
-      </section>
-    </main>
+        <div class="home-game screen-hidden active">
+          <img class="snake-img" src="./img/snake.svg" alt="Snake">
+          <div class="info-player">
+            <div class="element-container ">
+            <label for="player-name">Insert your name</label>
+            </div>
+            <input type="text" name="player-name" id="player-name" maxlength="8">
+          </div>
+          <div class="element-container">
+            <button>
+              Start Game
+            </button>
+          </div>
+        </div>
+        <canvas id="snake" class="screen-hidden" width="416" height="416"></canvas>
+        <div class="end-game screen-hidden"></div>
+      </section> 
   </body>
 </html>

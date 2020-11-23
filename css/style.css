@@ -11,6 +11,15 @@
   font-size: 20px;
 }
 
+label,
+input,
+button {
+  font-family: "Press Start 2P", cursive;
+  color: #fff;
+  font-size: 15px;
+  appearance: none;
+}
+
 /* Reset Css*/
 * {
   padding: 0;
@@ -59,6 +68,78 @@ canvas#snake {
 
 .screen-game {
   grid-area: screen-game;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen-hidden {
+  position: absolute;
+  display: none;
+}
+
+.screen-hidden.active {
+  display: flex;
+}
+
+.home-game,
+.end-game {
+  height: 416px;
+  width: 416px;
+  background-color: var(--primary-color);
+  border: 7px solid #fff;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.snake-img {
+  width: 100px;
+  height: 100px;
+}
+
+.element-container {
+  width: 280px;
+  height: 60px;
+  background-color: var(--primary-color);
+  border: 5px solid #1d2b14;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.element-container button,
+.element-container label {
+  border: none;
+  width: 95%;
+  height: 80%;
+  background-color: #1d2b14;
+  border-radius: 6px;
+  color: #fff;
+  font-family: "Press Start 2P", cursive;
+  font-size: 18px;
+}
+
+.element-container label {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input#player-name {
+  width: 280px;
+  height: 50px;
+  background-color: var(--primary-color);
+  border: 5px solid #1d2b14;
+  border-radius: 10px;
+  margin-top: 15px;
+  padding: 5px 15px;
+  color: #1d2b14;
+  text-transform: capitalize;
 }
 
 .screen-info {

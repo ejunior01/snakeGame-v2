@@ -1,27 +1,36 @@
 let canvas = document.getElementById("snake");
 let context = canvas.getContext("2d");
-let box = 32;
+let scoreScreen = document.querySelector(".current-score");
+
+let box = 26;
+let role = 8;
+let score = 0;
+let direction = "left";
+
 let snake = [];
 
 snake[0] = {
-  x: 6 * box,
-  y: 6 * box,
+  x: role * box,
+  y: role * box,
 };
-
-function randomFood() {
-  return Math.floor(Math.random() * 9 + 1) * box;
-}
 
 let food = {
   x: randomFood(),
   y: randomFood(),
 };
 
-let direction = "left";
+function scoreCurrent() {
+  score = (snake.length - 1) * 10;
+  scoreScreen.innerText = score;
+}
+
+function randomFood() {
+  return Math.floor(Math.random() * (role * 2 - 1) + 1) * box;
+}
 
 function createBG() {
   context.fillStyle = "#9bc405";
-  context.fillRect(0, 0, 12 * box, 12 * box);
+  context.fillRect(0, 0, role * 2 * box, role * 2 * box);
 }
 
 function createSnake() {
@@ -45,27 +54,61 @@ function update(event) {
 
 document.addEventListener("keydown", update);
 
+function borderRole() {
+  if (snake[0].x > (role * 2 - 1) * box && direction == "right") snake[0].x = 0;
+  if (snake[0].x < 0 && direction == "left") snake[0].x = role * 2 * box;
+  if (snake[0].y > (role * 2 - 1) * box && direction == "down") snake[0].y = 0;
+  if (snake[0].y < 0 && direction == "up") snake[0].y = role * 2 * box;
+
+  if (
+    (snake[0].x > (role * 2 - 1) * box && direction == "up") ||
+    (snake[0].x > (role * 2 - 1) * box && direction == "down")
+  )
+    snake[0].x = 0;
+  if (
+    (snake[0].x < 0 && direction == "up") ||
+    (snake[0].x < 0 && direction == "down")
+  )
+    snake[0].x = (role * 2 - 1) * box;
+
+  if (
+    (snake[0].y > (role * 2 - 1) * box && direction == "right") ||
+    (snake[0].y > (role * 2 - 1) * box && direction == "left")
+  )
+    snake[0].y = 0;
+  if (
+    (snake[0].y < 0 && direction == "right") ||
+    (snake[0].y < 0 && direction == "left")
+  )
+    snake[0].y = (role * 2 - 1) * box;
+}
+
 function gameOver() {
+  player.score = score;
   clearInterval(game);
-  alert("ok");
+  if (window.localStorage.getItem("firstRecords")) {
+    window.localStorage.removeItem("firstRecords");
+  }
+  records = records.sort((a, b) => b.score - a.score);
+  while (records.length > 3) {
+    records.pop();
+  }
+  window.localStorage.setItem("firstRecords", JSON.stringify(records));
   location.reload();
 }
 
 function startGame() {
-  if (snake[0].x > 11 * box && direction == "right") snake[0].x = 0;
-  if (snake[0].x < 0 && direction == "left") snake[0].x = 12 * box;
-  if (snake[0].y > 11 * box && direction == "down") snake[0].y = 0;
-  if (snake[0].y < 0 && direction == "up") snake[0].y = 12 * box;
-
   for (let i = 1; i < snake.length; i++) {
     if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
       gameOver();
     }
   }
 
+  borderRole();
   createBG();
   createSnake();
   drawFood();
+  scoreCurrent();
 
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;
@@ -86,8 +129,8 @@ function startGame() {
     x: snakeX,
     y: snakeY,
   };
-  console.log(snake);
+
   snake.unshift(newHead);
 }
 
-let game = setInterval(startGame, 200);
+let game = setInterval(startGame, 100);
