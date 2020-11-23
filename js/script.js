@@ -1,36 +1,61 @@
 let canvas = document.getElementById("snake");
 let context = canvas.getContext("2d");
 let scoreScreen = document.querySelector(".current-score");
+let clickStartGame = document.querySelector(".element-container button");
 
 let box = 26;
-let role = 8;
+let rule = 8;
 let score = 0;
 let direction = "left";
 
 let snake = [];
 
 snake[0] = {
-  x: role * box,
-  y: role * box,
+  x: rule * box,
+  y: rule * box,
 };
+
+function randomFood() {
+  return Math.floor(Math.random() * (rule * 2 - 1) + 1) * box;
+}
 
 let food = {
   x: randomFood(),
   y: randomFood(),
 };
 
-function scoreCurrent() {
-  score = (snake.length - 1) * 10;
-  scoreScreen.innerText = score;
-}
+function borderrule() {
+  if (snake[0].x > (rule * 2 - 1) * box && direction == "right") snake[0].x = 0;
+  if (snake[0].x < 0 && direction == "left") snake[0].x = rule * 2 * box;
+  if (snake[0].y > (rule * 2 - 1) * box && direction == "down") snake[0].y = 0;
+  if (snake[0].y < 0 && direction == "up") snake[0].y = rule * 2 * box;
 
-function randomFood() {
-  return Math.floor(Math.random() * (role * 2 - 1) + 1) * box;
+  if (
+    (snake[0].x > (rule * 2 - 1) * box && direction == "up") ||
+    (snake[0].x > (rule * 2 - 1) * box && direction == "down")
+  )
+    snake[0].x = 0;
+  if (
+    (snake[0].x < 0 && direction == "up") ||
+    (snake[0].x < 0 && direction == "down")
+  )
+    snake[0].x = (rule * 2 - 1) * box;
+
+  if (
+    (snake[0].y > (rule * 2 - 1) * box && direction == "right") ||
+    (snake[0].y > (rule * 2 - 1) * box && direction == "left")
+  )
+    snake[0].y = 0;
+  if (
+    (snake[0].y < 0 && direction == "right") ||
+    (snake[0].y < 0 && direction == "left")
+  )
+    snake[0].y = (rule * 2 - 1) * box;
 }
 
 function createBG() {
   context.fillStyle = "#9bc405";
-  context.fillRect(0, 0, role * 2 * box, role * 2 * box);
+  context.fillRect(0, 0, rule * 2 * box, rule * 2 * box);
 }
 
 function createSnake() {
@@ -45,42 +70,18 @@ function drawFood() {
   context.fillRect(food.x, food.y, box, box);
 }
 
-function update(event) {
+function moveSnake(event) {
   if (event.keyCode == 37 && direction != "right") direction = "left";
   if (event.keyCode == 38 && direction != "down") direction = "up";
   if (event.keyCode == 39 && direction != "left") direction = "right";
   if (event.keyCode == 40 && direction != "up") direction = "down";
 }
 
-document.addEventListener("keydown", update);
+document.addEventListener("keydown", moveSnake);
 
-function borderRole() {
-  if (snake[0].x > (role * 2 - 1) * box && direction == "right") snake[0].x = 0;
-  if (snake[0].x < 0 && direction == "left") snake[0].x = role * 2 * box;
-  if (snake[0].y > (role * 2 - 1) * box && direction == "down") snake[0].y = 0;
-  if (snake[0].y < 0 && direction == "up") snake[0].y = role * 2 * box;
-
-  if (
-    (snake[0].x > (role * 2 - 1) * box && direction == "up") ||
-    (snake[0].x > (role * 2 - 1) * box && direction == "down")
-  )
-    snake[0].x = 0;
-  if (
-    (snake[0].x < 0 && direction == "up") ||
-    (snake[0].x < 0 && direction == "down")
-  )
-    snake[0].x = (role * 2 - 1) * box;
-
-  if (
-    (snake[0].y > (role * 2 - 1) * box && direction == "right") ||
-    (snake[0].y > (role * 2 - 1) * box && direction == "left")
-  )
-    snake[0].y = 0;
-  if (
-    (snake[0].y < 0 && direction == "right") ||
-    (snake[0].y < 0 && direction == "left")
-  )
-    snake[0].y = (role * 2 - 1) * box;
+function scoreCurrent() {
+  score = (snake.length - 1) * 10;
+  scoreScreen.innerText = score;
 }
 
 function gameOver() {
@@ -104,7 +105,7 @@ function startGame() {
     }
   }
 
-  borderRole();
+  borderrule();
   createBG();
   createSnake();
   drawFood();
@@ -133,4 +134,8 @@ function startGame() {
   snake.unshift(newHead);
 }
 
-let game = setInterval(startGame, 100);
+function clickStart() {
+  let game = setInterval(startGame, 100);
+}
+
+clickStartGame.addEventListener("click", clickStart);

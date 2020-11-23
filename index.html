@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <script defer src="./js/script.js"></script>
     <script defer src="./js/record.js"></script>
-
+    <link rel="shortcut icon" href="img/snake.svg" type="image/x-icon">
     <title>Snake Game</title>
   </head>
   <body>
@@ -83,7 +83,18 @@
           </div>
         </div>
         <canvas id="snake" class="screen-hidden" width="416" height="416"></canvas>
-        <div class="end-game screen-hidden"></div>
+        <div class="end-game screen-hidden">
+          <h3>GAME OVER</h3>
+          <div class="score-endGame">
+            <p>Score</p>
+            <span></span>
+          </div>
+          <div class="element-container">
+            <button>
+              Restart Game
+            </button>
+          </div>
+        </div>
       </section> 
   </body>
 </html>

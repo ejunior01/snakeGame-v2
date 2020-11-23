@@ -1,5 +1,10 @@
+/* Regras Globais */
+
 :root {
   --primary-color: #9bc405;
+  --second-color: #1d2b14;
+  --third-color: #fff;
+  --dark-theme: #141414;
 }
 
 .text-green {
@@ -15,17 +20,23 @@ label,
 input,
 button {
   font-family: "Press Start 2P", cursive;
-  color: #fff;
+  color: var(--third-color);
   font-size: 15px;
   appearance: none;
 }
 
-/* Reset Css*/
+button {
+  cursor: pointer;
+}
+
+/* Reset Css */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
+
+/* regras body e container  */
 
 body {
   min-height: 100vh;
@@ -33,38 +44,37 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #141414;
+  background-color: var(--dark-theme);
   font-family: "Press Start 2P", cursive;
-  color: #fff;
+  color: var(--third-color);
   font-size: 15px;
 }
 
 main.container {
   width: 90%;
   height: 90vh;
+  max-width: 1300px;
+  max-height: 700px;
   border: 6px dashed var(--primary-color);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 15% 85%;
   grid-template-areas:
     "title title"
-    "screen-game info-config";
+    "screen-game screen-info";
   align-items: center;
   justify-items: center;
 }
 
-canvas#snake {
-  border: 7px solid #fff;
-}
+/* Título */
 
 .title-head {
   grid-area: title;
   font-size: 40px;
   margin-top: 20px;
 }
-.info-config {
-  grid-area: info-config;
-}
+
+/* Telas do Jogo */
 
 .screen-game {
   grid-area: screen-game;
@@ -76,11 +86,15 @@ canvas#snake {
 
 .screen-hidden {
   position: absolute;
+  visibility: hidden;
+  pointer-events: none;
   display: none;
 }
 
 .screen-hidden.active {
   display: flex;
+  visibility: visible;
+  pointer-events: all;
 }
 
 .home-game,
@@ -88,7 +102,7 @@ canvas#snake {
   height: 416px;
   width: 416px;
   background-color: var(--primary-color);
-  border: 7px solid #fff;
+  border: 7px solid var(--third-color);
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -104,7 +118,7 @@ canvas#snake {
   width: 280px;
   height: 60px;
   background-color: var(--primary-color);
-  border: 5px solid #1d2b14;
+  border: 5px solid var(--second-color);
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -116,9 +130,9 @@ canvas#snake {
   border: none;
   width: 95%;
   height: 80%;
-  background-color: #1d2b14;
+  background-color: var(--second-color);
   border-radius: 6px;
-  color: #fff;
+  color: var(--third-color);
   font-family: "Press Start 2P", cursive;
   font-size: 18px;
 }
@@ -134,12 +148,45 @@ input#player-name {
   width: 280px;
   height: 50px;
   background-color: var(--primary-color);
-  border: 5px solid #1d2b14;
+  border: 5px solid var(--second-color);
   border-radius: 10px;
   margin-top: 15px;
   padding: 5px 15px;
-  color: #1d2b14;
+  color: var(--second-color);
   text-transform: capitalize;
+}
+
+canvas#snake {
+  border: 7px solid var(--third-color);
+}
+
+.end-game h3 {
+  text-align: center;
+  font-size: 75px;
+}
+
+.score-endGame {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.end-game .score-endGame p {
+  font-size: 35px;
+  margin-bottom: 15px;
+}
+
+.end-game .score-endGame span {
+  font-size: 30px;
+}
+
+/* Informações e Configurações */
+
+.screen-info {
+  grid-area: screen-info;
 }
 
 .screen-info {
