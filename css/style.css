@@ -87,14 +87,15 @@ main.container {
 .screen-hidden {
   position: absolute;
   visibility: hidden;
+  opacity: 0;
   pointer-events: none;
-  display: none;
 }
 
 .screen-hidden.active {
-  display: flex;
-  visibility: visible;
   pointer-events: all;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 100ms;
 }
 
 .home-game,
@@ -103,6 +104,7 @@ main.container {
   width: 416px;
   background-color: var(--primary-color);
   border: 7px solid var(--third-color);
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -223,6 +225,7 @@ canvas#snake {
     "level-settings level-settings"
     "border-settings border-settings";
   gap: 15px;
+  cursor: no-drop;
 }
 
 #level-settings {

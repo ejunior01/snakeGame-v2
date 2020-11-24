@@ -1,7 +1,6 @@
 let canvas = document.getElementById("snake");
 let context = canvas.getContext("2d");
 let scoreScreen = document.querySelector(".current-score");
-let clickStartGame = document.querySelector(".element-container button");
 
 let box = 26;
 let rule = 8;
@@ -53,6 +52,13 @@ function borderrule() {
     snake[0].y = (rule * 2 - 1) * box;
 }
 
+// function borderrule() {
+//   if (snake[0].x > (rule * 2 - 1) * box && direction == "right") gameOver();
+//   if (snake[0].x < 0 && direction == "left") gameOver();
+//   if (snake[0].y > (rule * 2 - 1) * box && direction == "down") gameOver();
+//   if (snake[0].y < 0 && direction == "up") gameOver();
+// }
+
 function createBG() {
   context.fillStyle = "#9bc405";
   context.fillRect(0, 0, rule * 2 * box, rule * 2 * box);
@@ -85,17 +91,11 @@ function scoreCurrent() {
 }
 
 function gameOver() {
-  player.score = score;
   clearInterval(game);
-  if (window.localStorage.getItem("firstRecords")) {
-    window.localStorage.removeItem("firstRecords");
-  }
-  records = records.sort((a, b) => b.score - a.score);
-  while (records.length > 3) {
-    records.pop();
-  }
-  window.localStorage.setItem("firstRecords", JSON.stringify(records));
-  location.reload();
+  updatePlayer();
+  updateRecords();
+  saveLocalStore();
+  screenEndGame();
 }
 
 function startGame() {
@@ -134,8 +134,10 @@ function startGame() {
   snake.unshift(newHead);
 }
 
-function clickStart() {
-  let game = setInterval(startGame, 100);
-}
+let game;
 
-clickStartGame.addEventListener("click", clickStart);
+function playGame() {
+  setTimeout(() => {
+    game = setInterval(startGame, 200);
+  }, 2000);
+}
