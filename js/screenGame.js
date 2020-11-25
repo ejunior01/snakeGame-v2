@@ -139,5 +139,5 @@ let game;
 function playGame() {
   setTimeout(() => {
     game = setInterval(startGame, 150);
-  }, 2000);
+  }, 500);
 }
