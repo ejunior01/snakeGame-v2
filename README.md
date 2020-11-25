@@ -10,22 +10,21 @@
 
 ## :snake: INTRODUÇÃO
 
-Esse repositório referente as implementações de melhorias que fiz sobre o projeto de jogo da cobrinha, abordado no bootcamp - HTML Web Developer da [Digital Innovation One](https://digitalinnovation.one/). 
+Esse repositório é referente as implementações de melhorias que fiz sobre o projeto de jogo da cobrinha, abordado no bootcamp - HTML Web Developer da [Digital Innovation One](https://digitalinnovation.one/). 
 
-Para jogar [**clique aqui**](https://ejunior01.github.io/snakeGame-v2/), e caso queira acessar os demais projetos e conteúdos desenvolvidos no bootcamp, ou a implementação do jogo desenvolvido com as aulas do bootcamp pode  [clicar aqui](https://github.com/ejunior01/html_web_developer).
+Para jogar [**clique aqui**](https://ejunior01.github.io/snakeGame-v2/), e caso queira acessar os demais projetos e conteúdos desenvolvidos no bootcamp, ou a implementação do jogo desenvolvido através das aulas do bootcamp pode [clicar aqui](https://github.com/ejunior01/html_web_developer).
 
 
-
-Obs.: Projeto implementado para versões Desktop.
+Obs.: Projeto implementado para versões Desktop apenas, visto que a navegação é feita através das setas do teclado.
 
 ---
 
 ### Implementações
 
 - Implementação de tela de início, com campo de nome para o jogador. 
-- Validação se o campo nome foi preenchido, e caso exibi uma mensagem de aviso.
+- Validação se o campo nome foi preenchido, e caso não tenha sido exibição de uma mensagem de aviso.
 - Implementação de tela de fim de jogo com exibição da pontuação, e opção de recomeçar o jogo.
-- Salvar os três maiores recordes do jogo na Local Storage do browser em execução.
+- Salvar os três maiores recordes do jogo no Local Storage do browser que esteja executando o jogo.
 
 
 
@@ -33,7 +32,6 @@ Obs.: Projeto implementado para versões Desktop.
 
 - [ ] Habilitar opção de escolha para regra de bordas.
 - [ ] Habilitar opção de escolha dos níveis de dificuldades do jogo.
-
 
 
 ---
