@@ -1,6 +1,7 @@
 const homeGame = document.querySelector(".home-game");
 const canvasGame = document.querySelector("canvas");
 const endGame = document.querySelector(".end-game");
+let toast = document.querySelector(".toast");
 
 let playerName = document.querySelector("#player-name");
 let buttonStart = document.querySelector(".home-game button");
@@ -16,7 +17,12 @@ function clickStart() {
   if (!!playerCurrent) {
     homeGame.classList.remove("active");
     canvasGame.classList.add("active");
-    setTimeout(playGame, 150);
+    setTimeout(playGame, 200);
+  } else {
+    toast.classList.add("active");
+    toast.addEventListener("animationend", () => {
+      toast.classList.remove("active");
+    });
   }
 }
 
@@ -36,7 +42,7 @@ function clickRestart() {
   canvasGame.classList.add("active");
   setTimeout(() => {
     playGame();
-  }, 500);
+  }, 200);
 }
 
 function screenEndGame() {

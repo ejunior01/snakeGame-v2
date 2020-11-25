@@ -18,7 +18,7 @@
     <script defer src="./js/index.js"></script>
     <script defer src="./js/screenGame.js"></script>
     <script defer src="./js/recordsPlayers.js"></script>
-    <link rel="shortcut icon" href="img/snake.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="img/snake.svg" type="image/x-icon" />
     <title>Snake Game</title>
   </head>
   <body>
@@ -70,20 +70,28 @@
       </section>
       <section class="screen-game">
         <div class="home-game screen-hidden active">
-          <img class="snake-img" src="./img/snake.svg" alt="Snake">
+          <img class="snake-img" src="./img/snake.svg" alt="Snake" />
           <div class="info-player">
-            <div class="element-container ">
-            <label for="player-name">Insert your name</label>
+            <div class="element-container">
+              <label for="player-name">Insert your name</label>
             </div>
-            <input type="text" name="player-name" id="player-name" maxlength="8">
+            <input
+              type="text"
+              name="player-name"
+              id="player-name"
+              maxlength="8"
+            />
           </div>
           <div class="element-container">
-            <button>
-              Start Game
-            </button>
+            <button>Start Game</button>
           </div>
         </div>
-        <canvas id="snake" class="screen-hidden" width="416" height="416"></canvas>
+        <canvas
+          id="snake"
+          class="screen-hidden"
+          width="416"
+          height="416"
+        ></canvas>
         <div class="end-game screen-hidden">
           <h3>GAME OVER</h3>
           <div class="score-endGame">
@@ -91,11 +99,13 @@
             <span></span>
           </div>
           <div class="element-container">
-            <button>
-              Restart Game
-            </button>
+            <button>Restart Game</button>
           </div>
         </div>
-      </section> 
+      </section>
+    </main>
+    <div class="toast">
+      <p>Please fill in the name field!</p>
+    </div>
   </body>
 </html>

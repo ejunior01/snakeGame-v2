@@ -48,13 +48,14 @@ body {
   font-family: "Press Start 2P", cursive;
   color: var(--third-color);
   font-size: 15px;
+  position: relative;
 }
 
 main.container {
   width: 90%;
-  height: 90vh;
-  max-width: 1300px;
-  max-height: 700px;
+  height: 100vh;
+  max-width: 1200px;
+  max-height: 600px;
   border: 6px dashed var(--primary-color);
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -274,4 +275,68 @@ canvas#snake {
   display: grid;
   grid-template-columns: 10% 35% 60%;
   gap: 20px;
+}
+
+@media (max-width: 1000px) {
+  body {
+    padding: 20px 0;
+  }
+  main.container {
+    max-height: none;
+    height: 900px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 15% 45% 40%;
+    grid-template-areas:
+      "title"
+      "screen-game"
+      "screen-info";
+    row-gap: 35px;
+    padding: 10px 0 120px;
+    box-sizing: content-box;
+  }
+  .screen-game {
+    margin-bottom: 20px;
+  }
+
+  .screen-info {
+    height: 300px;
+  }
+}
+
+.toast {
+  position: absolute;
+  top: -80px;
+  width: 540px;
+  height: 60px;
+  background-color: var(--primary-color);
+  border: 5px solid var(--third-color);
+  padding: 5px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
+.active.toast {
+  animation: activeToast;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+}
+@keyframes activeToast {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(130px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(130px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
 }
