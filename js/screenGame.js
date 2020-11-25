@@ -94,7 +94,7 @@ function gameOver() {
   clearInterval(game);
   updatePlayer();
   updateRecords();
-  saveLocalStore();
+  saveLocalStorage();
   screenEndGame();
 }
 

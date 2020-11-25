@@ -41,7 +41,7 @@ function updateRecords() {
   }
 }
 
-function saveLocalStore() {
+function saveLocalStorage() {
   if (window.localStorage.getItem("firstRecords")) {
     window.localStorage.removeItem("firstRecords");
   }
