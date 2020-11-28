@@ -14,50 +14,14 @@ snake[0] = {
   y: rule * box,
 };
 
-function randomFood() {
+function random() {
   return Math.floor(Math.random() * (rule * 2 - 1) + 1) * box;
 }
 
 let food = {
-  x: randomFood(),
-  y: randomFood(),
+  x: random(),
+  y: random(),
 };
-
-function borderrule() {
-  if (snake[0].x > (rule * 2 - 1) * box && direction == "right") snake[0].x = 0;
-  if (snake[0].x < 0 && direction == "left") snake[0].x = rule * 2 * box;
-  if (snake[0].y > (rule * 2 - 1) * box && direction == "down") snake[0].y = 0;
-  if (snake[0].y < 0 && direction == "up") snake[0].y = rule * 2 * box;
-
-  if (
-    (snake[0].x > (rule * 2 - 1) * box && direction == "up") ||
-    (snake[0].x > (rule * 2 - 1) * box && direction == "down")
-  )
-    snake[0].x = 0;
-  if (
-    (snake[0].x < 0 && direction == "up") ||
-    (snake[0].x < 0 && direction == "down")
-  )
-    snake[0].x = (rule * 2 - 1) * box;
-
-  if (
-    (snake[0].y > (rule * 2 - 1) * box && direction == "right") ||
-    (snake[0].y > (rule * 2 - 1) * box && direction == "left")
-  )
-    snake[0].y = 0;
-  if (
-    (snake[0].y < 0 && direction == "right") ||
-    (snake[0].y < 0 && direction == "left")
-  )
-    snake[0].y = (rule * 2 - 1) * box;
-}
-
-// function borderrule() {
-//   if (snake[0].x > (rule * 2 - 1) * box && direction == "right") gameOver();
-//   if (snake[0].x < 0 && direction == "left") gameOver();
-//   if (snake[0].y > (rule * 2 - 1) * box && direction == "down") gameOver();
-//   if (snake[0].y < 0 && direction == "up") gameOver();
-// }
 
 function createBG() {
   context.fillStyle = "#9bc405";
@@ -105,7 +69,7 @@ function startGame() {
     }
   }
 
-  borderrule();
+  borderOFF();
   createBG();
   createSnake();
   drawFood();
@@ -122,8 +86,8 @@ function startGame() {
   if (snakeX != food.x || snakeY != food.y) {
     snake.pop();
   } else {
-    food.x = randomFood();
-    food.y = randomFood();
+    food.x = random();
+    food.y = random();
   }
 
   let newHead = {

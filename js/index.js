@@ -10,7 +10,7 @@ let buttonRestart = document.querySelector(".end-game button");
 let scoreEnd = document.querySelector(".score-endGame span");
 
 playerName.addEventListener("input", (e) => {
-  playerCurrent = e.target.value;
+  playerCurrent = e.target.value.trim();
 });
 
 function clickStart() {
