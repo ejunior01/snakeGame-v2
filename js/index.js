@@ -1,10 +1,67 @@
-/*
-Adicionar som na tela de login
-Adicionar som para o jogo em start 
-Adicionar som de fim de jogo
-Adicionar som comer a frutinha
-Adicionar som de aviso toast
-*/
+class Point {
+  x = null
+  y = null
+
+  constructor(x,y) {
+    this.x = x
+    this.y = y
+
+  }
+  create(x, y) {
+    return new Point(x, y)
+  }
+
+  getY() {
+    return this.y
+  }
+  getX() {
+    return this.x
+  }
+}
+
+
+class Food {
+  point = null
+
+  constructor() {
+    this.point = new Point().create(random(), random())
+  }
+
+  new() {
+    this.point = new Point().create(random(), random())
+  }
+
+  getY() {
+    return this.point.getY()
+  }
+  getX() {
+    return this.point.getX()
+  }
+
+}
+
+
+/* Level do jogo */
+
+const levelGame = {
+  easy() {
+    return 200;
+  },
+  medium() {
+    return 150;
+  },
+  hard() {
+    return 100;
+  },
+};
+
+const player = {
+  name: "",
+  score: 0,
+};
+
+let choiceLevel = levelGame["medium"];
+
 
 const body = document.querySelector("body");
 
@@ -42,10 +99,7 @@ const screens = {
       snake.pop();
     }
 
-    food = {
-      x: random(),
-      y: random(),
-    };
+    food.new()
 
     snake[0] = {
       x: settingsGame.size * settingsGame.box,
@@ -92,10 +146,10 @@ snake[0] = {
   y: settingsGame.size * settingsGame.box,
 };
 
-let food = {
-  x: random(),
-  y: random(),
-};
+
+
+
+const food = new Food()
 
 const createElements = {
   createBG() {
@@ -120,7 +174,7 @@ const createElements = {
   },
   createFood() {
     context.fillStyle = "red";
-    context.fillRect(food.x, food.y, settingsGame.box, settingsGame.box);
+    context.fillRect(food.getX(), food.getY(), settingsGame.box, settingsGame.box);
   },
 };
 
@@ -135,10 +189,6 @@ function random() {
 /* Armazenando informações sobre o jogador e os últimos 3 records*/
 /*===============================================================*/
 
-const player = {
-  name: "",
-  score: 0,
-};
 
 const currentScore = body.querySelector(".current-score");
 const recordName = body.querySelectorAll(".record-name");
@@ -271,21 +321,8 @@ function ruleborderON() {
   if (snake[0].y < 0 && settingsGame.direction == "up") gameOver();
 }
 
-/* Level do jogo */
 
-const levelGame = {
-  easy() {
-    return 200;
-  },
-  medium() {
-    return 150;
-  },
-  hard() {
-    return 100;
-  },
-};
 
-let choiceLevel = levelGame["medium"];
 
 /*===============================================================*/
 /* Função de início do jogo e fim do jogo                        */
@@ -320,11 +357,12 @@ function playGame() {
   if (settingsGame.direction == "up") snakeY -= settingsGame.box;
   if (settingsGame.direction == "down") snakeY += settingsGame.box;
 
-  if (snakeX != food.x || snakeY != food.y) {
+  console.log(food.getY())
+
+  if (snakeX != food.getX() || snakeY != food.getY()) {
     snake.pop();
   } else {
-    food.x = random();
-    food.y = random();
+    food.new()
   }
 
   let newHead = {
