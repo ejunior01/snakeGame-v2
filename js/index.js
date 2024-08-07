@@ -1,10 +1,106 @@
-/*
-Adicionar som na tela de login
-Adicionar som para o jogo em start 
-Adicionar som de fim de jogo
-Adicionar som comer a frutinha
-Adicionar som de aviso toast
-*/
+class Point {
+  x = null
+  y = null
+
+  constructor(x, y) {
+    this.x = x
+    this.y = y
+
+  }
+  create(x, y) {
+    return new Point(x, y)
+  }
+
+  getY() {
+    return this.y
+  }
+  getX() {
+    return this.x
+  }
+}
+
+
+class Food {
+  point = null
+
+  constructor() {
+    this.point = new Point().create(random(), random())
+  }
+
+  new() {
+    this.point = new Point().create(random(), random())
+  }
+
+  getY() {
+    return this.point.getY()
+  }
+  getX() {
+    return this.point.getX()
+  }
+
+}
+
+class Snake {
+  body = []
+
+  constructor() {
+    let point = settingsGame.size * settingsGame.box
+    this.body[0] = new Point().create(point, point)
+  }
+
+  new() {
+    let point = settingsGame.size * settingsGame.box
+    this.body = []
+
+    this.body[0] = new Point().create(point, point)
+  }
+
+  getHeade() {
+    return this.body[0]
+  }
+
+  setHeade(x, y) {
+    return this.body.unshift(new Point().create(x, y))
+  }
+
+  size() {
+    return this.body.length
+  }
+
+}
+
+const settingsGame = {
+  box: 26,
+  size: 8,
+  direction: "left",
+};
+
+/* Level do jogo */
+
+const levelGame = {
+  easy() {
+    return 200;
+  },
+  medium() {
+    return 150;
+  },
+  hard() {
+    return 100;
+  },
+};
+
+
+
+const player = {
+  name: "",
+  score: 0,
+};
+
+let choiceLevel = levelGame["medium"];
+
+const snake = new Snake()
+const food = new Food()
+
 
 const body = document.querySelector("body");
 
@@ -38,19 +134,9 @@ const screens = {
     }
   },
   clickRestart() {
-    while (snake.length > 1) {
-      snake.pop();
-    }
 
-    food = {
-      x: random(),
-      y: random(),
-    };
-
-    snake[0] = {
-      x: settingsGame.size * settingsGame.box,
-      y: settingsGame.size * settingsGame.box,
-    };
+    food.new()
+    snake.new()
 
     screenEnd.classList.remove("active");
     screenGame.classList.add("active");
@@ -79,23 +165,13 @@ buttonRestart.addEventListener("click", screens.clickRestart);
 const canvas = body.querySelector("#snake");
 const context = canvas.getContext("2d");
 
-const settingsGame = {
-  box: 26,
-  size: 8,
-  direction: "left",
-};
 
-let snake = [];
 
-snake[0] = {
-  x: settingsGame.size * settingsGame.box,
-  y: settingsGame.size * settingsGame.box,
-};
 
-let food = {
-  x: random(),
-  y: random(),
-};
+
+
+
+
 
 const createElements = {
   createBG() {
@@ -108,11 +184,11 @@ const createElements = {
     );
   },
   createSnake() {
-    for (let i = 0; i < snake.length; i++) {
+    for (let i = 0; i < snake.size(); i++) {
       context.fillStyle = "#1D2B14";
       context.fillRect(
-        snake[i].x,
-        snake[i].y,
+        snake.body[i].getX(),
+        snake.body[i].getY(),
         settingsGame.box,
         settingsGame.box
       );
@@ -120,7 +196,7 @@ const createElements = {
   },
   createFood() {
     context.fillStyle = "red";
-    context.fillRect(food.x, food.y, settingsGame.box, settingsGame.box);
+    context.fillRect(food.getX(), food.getY(), settingsGame.box, settingsGame.box);
   },
 };
 
@@ -135,10 +211,6 @@ function random() {
 /* Armazenando informações sobre o jogador e os últimos 3 records*/
 /*===============================================================*/
 
-const player = {
-  name: "",
-  score: 0,
-};
 
 const currentScore = body.querySelector(".current-score");
 const recordName = body.querySelectorAll(".record-name");
@@ -152,7 +224,7 @@ if (window.localStorage.getItem("recordsGame")) {
 
 let informationGame = {
   informationScore() {
-    player.score = snake.length > 0 ? (snake.length - 1) * 10 : 0;
+    player.score = snake.size() > 0 ? (snake.size() - 1) * 10 : 0;
     currentScore.innerText = player.score;
   },
   updateRecords() {
@@ -210,82 +282,84 @@ function ruleBorder(rule) {
 
 function ruleBorderOFF() {
   if (
-    snake[0].x > (settingsGame.size * 2 - 1) * settingsGame.box &&
+    snake.getHeade().getX() > (settingsGame.size * 2 - 1) * settingsGame.box &&
     settingsGame.direction == "right"
   )
-    snake[0].x = 0;
+    snake.setHeade(0, snake.getHeade().getY())
 
   if (
-    (snake[0].x > (settingsGame.size * 2 - 1) * settingsGame.box &&
+    (snake.getHeade().getX() > (settingsGame.size * 2 - 1) * settingsGame.box &&
       settingsGame.direction == "up") ||
-    (snake[0].x > (settingsGame.size * 2 - 1) * settingsGame.box &&
+    (snake.getHeade().getX() > (settingsGame.size * 2 - 1) * settingsGame.box &&
       settingsGame.direction == "down")
   )
-    snake[0].x = 0;
+    snake.setHeade(0, snake.getHeade().getY())
 
-  if (snake[0].x < 0 && settingsGame.direction == "left")
-    snake[0].x = settingsGame.size * 2 * settingsGame.box;
+  if (snake.getHeade().getX() < 0 && settingsGame.direction == "left") {
 
-  if (
-    (snake[0].x < 0 && settingsGame.direction == "up") ||
-    (snake[0].x < 0 && settingsGame.direction == "down")
-  )
-    snake[0].x = (settingsGame.size * 2 - 1) * settingsGame.box;
+    let headeX = settingsGame.size * 2 * settingsGame.box;
+    snake.setHeade(headeX, snake.getHeade().getY())
+  }
 
   if (
-    snake[0].y > (settingsGame.size * 2 - 1) * settingsGame.box &&
+    (snake.getHeade().getX() < 0 && settingsGame.direction == "up") ||
+    (snake.getHeade().getX() < 0 && settingsGame.direction == "down")
+  ) {
+    let headeX = (settingsGame.size * 2 - 1) * settingsGame.box;
+
+    snake.setHeade(headeX, snake.getHeade().getY())
+
+  }
+
+  if (
+    snake.getHeade().getY() > (settingsGame.size * 2 - 1) * settingsGame.box &&
     settingsGame.direction == "down"
   )
-    snake[0].y = 0;
+    snake.setHeade(snake.getHeade().getX(), 0)
 
   if (
-    (snake[0].y > (settingsGame.size * 2 - 1) * settingsGame.box &&
+    (snake.getHeade().getY() > (settingsGame.size * 2 - 1) * settingsGame.box &&
       settingsGame.direction == "right") ||
-    (snake[0].y > (settingsGame.size * 2 - 1) * settingsGame.box &&
+    (snake.getHeade().getY() > (settingsGame.size * 2 - 1) * settingsGame.box &&
       settingsGame.direction == "left")
   )
-    snake[0].y = 0;
+    snake.setHeade(snake.getHeade().getX(), 0)
 
-  if (snake[0].y < 0 && settingsGame.direction == "up")
-    snake[0].y = settingsGame.size * 2 * settingsGame.box;
+
+  if (snake.getHeade().getY() < 0 && settingsGame.direction == "up")
+  {
+
+    let headeY = settingsGame.size * 2 * settingsGame.box;
+    snake.setHeade(snake.getHeade().getX(),headeY)  
+  }
 
   if (
-    (snake[0].y < 0 && settingsGame.direction == "right") ||
-    (snake[0].y < 0 && settingsGame.direction == "left")
-  )
-    snake[0].y = (settingsGame.size * 2 - 1) * settingsGame.box;
+    (snake.getHeade().getY() < 0 && settingsGame.direction == "right") ||
+    (snake.getHeade().getY() < 0 && settingsGame.direction == "left")
+  ) {
+
+    let headeY = (settingsGame.size * 2 - 1) * settingsGame.box;
+    snake.setHeade(snake.getHeade().getX(),headeY)  
+  }
 }
 
 function ruleborderON() {
   if (
-    snake[0].x > (settingsGame.size * 2 - 1) * settingsGame.box &&
+    snake.body[0].getX() > (settingsGame.size * 2 - 1) * settingsGame.box &&
     settingsGame.direction == "right"
   )
     gameOver();
-  if (snake[0].x < 0 && settingsGame.direction == "left") gameOver();
+  if (snake.body[0].getX() < 0 && settingsGame.direction == "left") gameOver();
   if (
-    snake[0].y > (settingsGame.size * 2 - 1) * settingsGame.box &&
+    snake.body[0].getY() > (settingsGame.size * 2 - 1) * settingsGame.box &&
     settingsGame.direction == "down"
   )
     gameOver();
-  if (snake[0].y < 0 && settingsGame.direction == "up") gameOver();
+  if (snake.body[0].getY() < 0 && settingsGame.direction == "up") gameOver();
 }
 
-/* Level do jogo */
 
-const levelGame = {
-  easy() {
-    return 200;
-  },
-  medium() {
-    return 150;
-  },
-  hard() {
-    return 100;
-  },
-};
 
-let choiceLevel = levelGame["medium"];
 
 /*===============================================================*/
 /* Função de início do jogo e fim do jogo                        */
@@ -300,8 +374,9 @@ function gameOver() {
 }
 
 function playGame() {
-  for (let i = 1; i < snake.length; i++) {
-    if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+
+  for (let i = 1; i < snake.size(); i++) {
+    if (snake.getHeade().getX() == snake.body[i].getX() && snake.getHeade().getY() == snake.body[i].getY()) {
       gameOver();
     }
   }
@@ -312,27 +387,23 @@ function playGame() {
 
   ruleBorder(0);
 
-  let snakeX = snake[0].x;
-  let snakeY = snake[0].y;
+  let snakeX = snake.getHeade().getX();
+  let snakeY = snake.getHeade().getY();
 
   if (settingsGame.direction == "right") snakeX += settingsGame.box;
   if (settingsGame.direction == "left") snakeX -= settingsGame.box;
   if (settingsGame.direction == "up") snakeY -= settingsGame.box;
   if (settingsGame.direction == "down") snakeY += settingsGame.box;
 
-  if (snakeX != food.x || snakeY != food.y) {
-    snake.pop();
+
+  if (snakeX != food.getX() || snakeY != food.getY()) {
+    snake.body.pop();
   } else {
-    food.x = random();
-    food.y = random();
+    food.new()
   }
 
-  let newHead = {
-    x: snakeX,
-    y: snakeY,
-  };
+  snake.setHeade(snakeX, snakeY)
 
-  snake.unshift(newHead);
 }
 
 let game;
